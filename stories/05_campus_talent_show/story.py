@@ -86,17 +86,8 @@ class AudienceWave:  # No Performance inheritance: the shared behaviour is enoug
     def describe(self):
         return "Audience wave: one minute, everybody gets to be famous."
 
-
-# Extension 3: A thank-you speech is a separate object with the same interface.
-class ThankYouSpeech:
-    def __init__(self, speaker):
-        self.name = speaker
-
     def duration(self):
         return 1
-
-    def describe(self):
-        return f"{self.name}: thank you for the warm welcome and the applause."
 
 
 # ACT 4: The show HAS-A clock; it borrows and swaps performance objects.
