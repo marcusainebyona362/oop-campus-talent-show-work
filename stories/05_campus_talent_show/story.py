@@ -25,6 +25,13 @@ class ShowClock:
         self.remaining = self.remaining - minutes
         return True
 
+    # Extension 2: The MC gets extra time. A positive value adds minutes.
+    def extend(self, minutes):
+        if minutes <= 0:
+            return False
+        self.remaining = self.remaining + minutes
+        return True
+
 
 # ACT 2: Every performance must tell the MC its duration.
 class Performance(ABC):
@@ -79,17 +86,8 @@ class AudienceWave:  # No Performance inheritance: the shared behaviour is enoug
     def describe(self):
         return "Audience wave: one minute, everybody gets to be famous."
 
-
-class ThankYouSpeech:
-    # Duck typing lets this one-minute speech work without inheriting Performance.
-    def __init__(self, speaker):
-        self.name = f"{speaker}'s thank-you speech"
-
     def duration(self):
         return 1
-
-    def describe(self):
-        return f"{self.name}: one minute at the end of the show."
 
 
 # ACT 4: The show HAS-A clock; it borrows and swaps performance objects.
