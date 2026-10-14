@@ -80,6 +80,18 @@ class AudienceWave:  # No Performance inheritance: the shared behaviour is enoug
         return "Audience wave: one minute, everybody gets to be famous."
 
 
+class ThankYouSpeech:
+    # Duck typing lets this one-minute speech work without inheriting Performance.
+    def __init__(self, speaker):
+        self.name = f"{speaker}'s thank-you speech"
+
+    def duration(self):
+        return 1
+
+    def describe(self):
+        return f"{self.name}: one minute at the end of the show."
+
+
 # ACT 4: The show HAS-A clock; it borrows and swaps performance objects.
 class TalentShow:
     def __init__(self, mc, minutes):
