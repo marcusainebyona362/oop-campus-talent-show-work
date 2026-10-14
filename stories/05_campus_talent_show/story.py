@@ -62,6 +62,12 @@ class Poetry(Performance):  # Shared parent: hierarchical inheritance.
         return 4
 
 
+class Comedy(Performance):
+    # A comedy duo is a two-minute performance.
+    def duration(self):
+        return 2
+
+
 class ShortDance(Dance):  # Performance -> Dance -> ShortDance: multilevel.
     def duration(self):
         return super().duration() // 2  # Extend a parent's implementation.
