@@ -4,6 +4,41 @@ Run: python3 story.py. All acts and timings are fictional classroom examples.
 from abc import ABC, abstractmethod
 
 
+class StageTime:
+    """An immutable, non-negative whole number of show minutes."""
+    __slots__ = ("_amount",)
+
+    def __init__(self, amount):
+        if isinstance(amount, bool) or not isinstance(amount, int):
+            raise TypeError("StageTime amount must be a whole number of minutes.")
+        if amount < 0:
+            raise ValueError("StageTime amount cannot be negative.")
+        object.__setattr__(self, "_amount", amount)
+
+    @property
+    def amount(self):
+        return self._amount
+
+    def __setattr__(self, name, value):
+        raise AttributeError("StageTime values are immutable.")
+
+    def __str__(self):
+        return f"{self.amount:,} minutes"
+
+    def __repr__(self):
+        return f"StageTime({self.amount})"
+
+    def __eq__(self, other):
+        if not isinstance(other, StageTime):
+            return NotImplemented
+        return self.amount == other.amount
+
+    def __add__(self, other):
+        if not isinstance(other, StageTime):
+            return NotImplemented
+        return StageTime(self.amount + other.amount)
+
+
 # ACT 1: Time is a resource with a rule: don't schedule negative minutes.
 class ShowClock:
     def __init__(self, minutes):
