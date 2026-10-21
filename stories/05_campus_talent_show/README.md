@@ -6,7 +6,7 @@ This story includes all the OOP concepts from Weeks 1 to 6. The numbers are made
 
 ## Group assignment
 
-The group task is due **Thursday, 15 October 2026**. [Choose from six extensions](EXTENSIONS.md), with one extension per member: choose any five for a five-person group, or all six for a six-person group. Follow the [fork, branch, review and merge instructions](../../GROUP_ASSIGNMENT.md).
+The current combined group assignment is due **Wednesday, 21 October 2026 (Uganda time)**. Follow [the current assignment](../../GROUP_ASSIGNMENT.md) for the foundation and later-topic requirements. The six choices in [EXTENSIONS.md](EXTENSIONS.md) describe this story's foundation work.
 
 ## Run this story
 
@@ -103,3 +103,15 @@ Choice objects are created outside the coordinator. Passing them in is associati
 | Python refresher | Functions, parameters, defaults, returned values, lists, loops, conditions and arithmetic |
 
 Read [OOP in plain English](../../OOP_IN_PLAIN_ENGLISH.md) for a simple explanation of the terms.
+
+## Strict booking with explained errors
+
+`TalentShow.book()` keeps its original behavior: a request that does not fit returns the story's refusal message. `StrictTalentShow.safe_book()` provides a stricter alternative for callers that need to handle failures explicitly:
+
+- `ShowChoiceError` means no choice was supplied.
+- `ShowRequestError` means the choice calculated a negative duration.
+- `ShowResourceError` means the valid duration exceeds the remaining time.
+
+A choice with a duration of zero is valid in strict mode and is added to the booking history without spending time. Failed strict bookings raise their specific exception before changing the remaining time or successful booking count.
+
+Run the strict-booking example with `py -3 stories/05_campus_talent_show/demo_mulyantimark_s25b13_110.py`. Run its automated checks from the repository root with `py -3 -m unittest discover -s stories/05_campus_talent_show -p "test_*.py"`.

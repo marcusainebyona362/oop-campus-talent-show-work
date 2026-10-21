@@ -68,6 +68,18 @@ class Comedy(Performance):
         return 2
 
 
+# Extension 3: A thank-you speech is a separate object that still works with the show.
+class ThankYouSpeech:
+    def __init__(self, speaker):
+        self.name = f"{speaker}'s thank-you speech"
+
+    def duration(self):
+        return 1
+
+    def describe(self):
+        return f"{self.name}: {self.duration()} minute at {Performance.venue}."
+
+
 class ShortDance(Dance):  # Performance -> Dance -> ShortDance: multilevel.
     def duration(self):
         return super().duration() // 2  # Extend a parent's implementation.
@@ -115,6 +127,37 @@ class TalentShow:
             self._lineup.append(performance)  # Collaborating objects in a collection.
             return f"MC {self.mc} books {performance.name}."
         return f"No slot for {performance.name}. The timetable has entered the chat."
+
+
+class ShowChoiceError(Exception):
+    """Raised when a strict booking has no choice to evaluate."""
+
+
+class ShowRequestError(Exception):
+    """Raised when a choice requests an invalid amount of stage time."""
+
+
+class ShowResourceError(Exception):
+    """Raised when a valid request exceeds the available stage time."""
+
+
+class StrictTalentShow(TalentShow):
+    def safe_book(self, choice):
+        if choice is None:
+            raise ShowChoiceError("A performance choice is required.")
+
+        minutes = choice.duration()
+        if minutes < 0:
+            raise ShowRequestError("A performance cannot request negative minutes.")
+        if minutes > self.clock.remaining:
+            raise ShowResourceError("The performance does not fit the remaining time.")
+
+        if minutes == 0:
+            self.performance = choice
+            self._lineup.append(choice)
+            return f"MC {self.mc} books {choice.name}."
+
+        return super().book(choice)
 
 
 def audition(performances):  # Week 1's function, parameters, list, and loop.

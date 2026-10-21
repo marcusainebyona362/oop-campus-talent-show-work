@@ -1,6 +1,6 @@
 # Campus Talent Show: group extensions
 
-**Due: Thursday, 15 October 2026.**
+**Due: Wednesday, 21 October 2026 (Uganda time).**
 
 Your group works on this story only. There are six choices below.
 
